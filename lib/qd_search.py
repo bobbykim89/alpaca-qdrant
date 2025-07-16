@@ -22,7 +22,7 @@ class QdSearch:
             api_key=qdrant_api_key
         )
         self.collection_name = environ.get('COLLECTION_NAME')
-        self.model_name = environ.get('MODEL_NAME')
+        self.model_name = 'jina-embeddings-v2-small-en'
         self.jina_api_key = environ.get('JINA_API_KEY')
         self.jina_url = "https://api.jina.ai/v1/embeddings"
 
