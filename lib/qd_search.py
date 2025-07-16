@@ -83,7 +83,7 @@ class QdSearch:
             degree_data["degree_description"] = hit.payload['shortDescription']
             recommended_degrees_data.append(degree_data)
 
-        return json.dumps(recommended_degrees_data, indent=2)
+        return recommended_degrees_data
 
     def qd_search(self, career: str, answers: str):
         user_profile = self._generate_user_profile(quiz_answers=answers)
@@ -92,4 +92,4 @@ class QdSearch:
         # format degrees
         recommended_degrees = self._format_hits_response(hits=hits)
 
-        return recommended_degrees
+        return recommended_degrees, user_profile
