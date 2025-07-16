@@ -41,14 +41,15 @@ def get_jina_embedding(text):
 
 
 def handler(request):
-    if request.method != 'POST':
+    if request['method'] != 'POST':
         return {
             "statusCode": 405,
+            "headers": {"Content-Type": "application/json"},
             "body": json.dumps({"error": "Method not allowed"})
         }
 
     try:
-        body = request.json()
+        body = json.loads(request['body'])
         selected_career = body.get('selected_career')
         user_profile = body.get('user_profile')
         career_vector = get_jina_embedding(selected_career)
@@ -73,11 +74,12 @@ def handler(request):
         )
         return {
             "statusCode": 200,
-            "body": json.dumps({"data": results}),
+            "body": json.dumps({"data": results.model_dump()}),
             "headers": {"Content-Type": "application/json"}
         }
     except Exception as e:
         return {
             "statusCode": 500,
-            "body": json.dumps({"error": str(e)})
+            "body": json.dumps({"error": str(e)}),
+            "headers": {"Content-Type": "application/json"}
         }
