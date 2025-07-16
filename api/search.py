@@ -103,7 +103,8 @@ class handler(BaseHTTPRequestHandler):
                 {"id": 1, "title": f"Result for '{search_query}'",
                     "description": "This is a sample result"},
                 {"id": 2, "title": f"Another result for '{search_query}'",
-                    "description": "This is another sample result"}
+                    "description": "This is another sample result"},
+                self.jina_api_key
             ] if search_query else [],
             "total": 2 if search_query else 0
         }
@@ -127,8 +128,6 @@ class handler(BaseHTTPRequestHandler):
         try:
             # Parse JSON data
             data = json.loads(post_data.decode('utf-8'))
-            # search_query = data.get('query', '')
-            # filters = data.get('filters', {})
 
             selected_career = data.get('selected_career')
             quiz_answers = data.get('answers')
