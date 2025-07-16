@@ -16,7 +16,8 @@ class handler(BaseHTTPRequestHandler):
     jina_api_key: str
     jina_url: str
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         qdrant_url = environ.get('QDRANT_URL')
         qdrant_api_key = environ.get('QDRANT_API_KEY')
         self.qd_client = QdrantClient(
