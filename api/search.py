@@ -82,22 +82,22 @@ class handler(BaseHTTPRequestHandler):
         try:
             # Parse JSON data
             data = json.loads(post_data.decode('utf-8'))
-            search_query = data.get('query', '')
-            filters = data.get('filters', {})
+            # search_query = data.get('query', '')
+            # filters = data.get('filters', {})
 
-            # Mock response for POST request
-            response_data = {
-                "method": "POST",
-                "query": search_query,
-                "filters": filters,
-                "results": [
-                    {"id": 1, "title": f"Advanced result for '{search_query}'",
-                        "description": "This is a filtered result"},
-                    {"id": 2, "title": f"Filtered result for '{search_query}'",
-                        "description": "This matches your filters"}
-                ] if search_query else [],
-                "total": 2 if search_query else 0
-            }
+            # # Mock response for POST request
+            # response_data = {
+            #     "method": "POST",
+            #     "query": search_query,
+            #     "filters": filters,
+            #     "results": [
+            #         {"id": 1, "title": f"Advanced result for '{search_query}'",
+            #             "description": "This is a filtered result"},
+            #         {"id": 2, "title": f"Filtered result for '{search_query}'",
+            #             "description": "This matches your filters"}
+            #     ] if search_query else [],
+            #     "total": 2 if search_query else 0
+            # }
 
             # Set response headers
             self.send_response(200)
@@ -106,7 +106,7 @@ class handler(BaseHTTPRequestHandler):
             self.end_headers()
 
             # Send response
-            self.wfile.write(json.dumps(response_data).encode())
+            self.wfile.write(json.dumps(data).encode())
 
         except json.JSONDecodeError:
             # Handle invalid JSON
