@@ -1,7 +1,6 @@
 import json
 from dotenv import load_dotenv
 from http.server import BaseHTTPRequestHandler
-import urllib.parse
 from lib.qd_search import QdSearch
 
 load_dotenv()
@@ -9,23 +8,13 @@ load_dotenv()
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        parsed_url = urllib.parse.urlparse(self.path)
-        query_params = urllib.parse.parse_qs(parsed_url.query)
-
-        # Extract search query parameter
-        search_query = query_params.get('q', [''])[0]
-
         # Mock Response for GET request
         response_data = {
-            "method": "GET",
-            "query": search_query,
-            "results": [
-                {"id": 1, "title": f"Result for '{search_query}'",
-                    "description": "This is a sample result"},
-                {"id": 2, "title": f"Another result for '{search_query}'",
-                    "description": "This is another sample result"}
-            ] if search_query else [],
-            "total": 2 if search_query else 0
+            "message": "This route only support POST method.",
+            "data": {
+                "selected_career": "selected career from quiz",
+                "answers": ["answers from quiz"]
+            }
         }
 
         # set response headers
