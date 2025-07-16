@@ -53,8 +53,17 @@ class handler(BaseHTTPRequestHandler):
             selected_career = data.get('selected_career')
             quiz_answers = data.get('answers')
 
-            recommended_degrees = qd_search.qd_search(
+            recommended_degrees, user_profile = qd_search.qd_search(
                 career=selected_career, answers=quiz_answers)
+
+            response_data = {
+                "message": "Submission received",
+                "request": {
+                    "selected_career": selected_career,
+                    "user_profile": user_profile
+                },
+                "data": recommended_degrees
+            }
 
             # Set response headers
             self.send_response(201)
@@ -63,7 +72,7 @@ class handler(BaseHTTPRequestHandler):
             self.end_headers()
 
             # Send response
-            self.wfile.write(json.dumps(recommended_degrees).encode())
+            self.wfile.write(json.dumps(response_data).encode())
 
         except json.JSONDecodeError:
             # Handle invalid JSON
